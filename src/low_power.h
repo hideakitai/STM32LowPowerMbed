@@ -39,7 +39,9 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32_def.h"
+#if 0
 #include "uart.h"
+#endif
 
 #if defined(HAL_PWR_MODULE_ENABLED) && !defined(HAL_PWR_MODULE_ONLY)
 
@@ -53,11 +55,17 @@ extern "C" {
 /* Exported functions ------------------------------------------------------- */
 
 void LowPower_init();
-void LowPower_EnableWakeUpPin(uint32_t pin, uint32_t mode);
+void LowPower_EnableWakeUpPin(PinName pin, uint32_t mode);
+#if 0
 void LowPower_EnableWakeUpUart(serial_t *serial, void (*FuncPtr)(void));
+#endif
 void LowPower_sleep(uint32_t regulator);
+#if 0
 void LowPower_stop(serial_t *obj);
-void LowPower_standby();
+#else
+void LowPower_stop(void);
+#endif
+void LowPower_standby(void);
 void LowPower_shutdown(bool isRTC);
 /* Weaked function */
 void SystemClock_ConfigFromStop(void);

@@ -46,7 +46,7 @@
   #error "PWR configuration is missing. Check flag HAL_PWR_MODULE_ENABLED in variants/board_name/stm32yzxx_hal_conf.h"
 #endif
 
-#include "STM32RTC.h"
+#include "STM32RTCMbed.h"
 
 enum LP_Mode : uint8_t {
   IDLE_MODE,
@@ -55,7 +55,7 @@ enum LP_Mode : uint8_t {
   SHUTDOWN_MODE
 };
 
-typedef void (*voidFuncPtrVoid)(void) ;
+typedef void (*isrFuncPtrVoid)(void);
 
 class STM32LowPower {
   public:
@@ -87,14 +87,18 @@ class STM32LowPower {
       shutdown((uint32_t)ms);
     }
 
-    void attachInterruptWakeup(uint32_t pin, voidFuncPtrVoid callback, uint32_t mode, LP_Mode LowPowerMode = SHUTDOWN_MODE);
+    void attachInterruptWakeup(PinName pin, isrFuncPtrVoid callback, uint32_t mode, LP_Mode LowPowerMode = SHUTDOWN_MODE);
 
+#if 0
     void enableWakeupFrom(HardwareSerial *serial, voidFuncPtrVoid callback);
-    void enableWakeupFrom(STM32RTC *rtc, voidFuncPtr callback, void *data = NULL);
+#endif
+    void enableWakeupFrom(STM32RTC *rtc, isrFuncPtr callback, void *data = NULL);
 
   private:
     bool _configured;     // Low Power mode initialization status
+#if 0
     serial_t *_serial;    // Serial for wakeup from deep sleep
+#endif
     bool _rtc_wakeup;     // Is RTC wakeup?
     void programRtcWakeUp(uint32_t ms, LP_Mode lp_mode);
     void setAlarmTime(uint32_t ms, STM32RTC &rtc);

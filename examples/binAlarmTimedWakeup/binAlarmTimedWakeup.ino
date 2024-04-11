@@ -12,8 +12,8 @@
   This example code is in the public domain.
 */
 
-#include "STM32LowPower.h"
-#include <STM32RTC.h>
+#include "STM32LowPowerMbed.h"
+#include <STM32RTCMbed.h>
 
 /* Get the rtc object */
 STM32RTC& rtc = STM32RTC::getInstance();

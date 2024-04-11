@@ -20,6 +20,7 @@
 
 #include "Arduino.h"
 #include "low_power.h"
+#include "clock.h"
 #include "stm32yyxx_ll_pwr.h"
 
 #if defined(HAL_PWR_MODULE_ENABLED) && !defined(HAL_PWR_MODULE_ONLY)
@@ -86,7 +87,7 @@ void LowPower_init()
   * @param  mode: pin mode (edge or state). The configuration have to be compatible.
   * @retval None
   */
-void LowPower_EnableWakeUpPin(uint32_t pin, uint32_t mode)
+void LowPower_EnableWakeUpPin(PinName pin, uint32_t mode)
 {
 #if !defined(PWR_WAKEUP_PIN1_HIGH)
   UNUSED(mode);
@@ -128,7 +129,7 @@ void LowPower_EnableWakeUpPin(uint32_t pin, uint32_t mode)
 #endif
     }
 #endif /* PWR_WAKEUP_PIN2 */
-#ifdef PWR_WAKEUP_PIN3
+#if defined(PWR_WAKEUP_PIN3) && defined(SYS_WKUP3)
     if ((p == SYS_WKUP3)
 #ifdef PWR_WAKEUP_PIN3_1
         || (p == SYS_WKUP3_1)
@@ -145,7 +146,7 @@ void LowPower_EnableWakeUpPin(uint32_t pin, uint32_t mode)
 #endif
     }
 #endif /* PWR_WAKEUP_PIN3 */
-#ifdef PWR_WAKEUP_PIN4
+#if defined(PWR_WAKEUP_PIN4) && defined(SYS_WKUP4)
     if ((p == SYS_WKUP4)
 #ifdef PWR_WAKEUP_PIN4_1
         || (p == SYS_WKUP4_1)
@@ -179,7 +180,7 @@ void LowPower_EnableWakeUpPin(uint32_t pin, uint32_t mode)
 #endif
     }
 #endif /* PWR_WAKEUP_PIN5 */
-#ifdef PWR_WAKEUP_PIN6
+#if defined(PWR_WAKEUP_PIN6) && defined(SYS_WKUP6)
     if ((p == SYS_WKUP6)
 #ifdef PWR_WAKEUP_PIN6_1
         || (p == SYS_WKUP6_1)
@@ -428,12 +429,20 @@ void LowPower_sleep(uint32_t regulator)
   }
 }
 
+#if 0
 /**
   * @brief  Enable the stop mode.
   * @param  obj : pointer to serial_t structure
   * @retval None
   */
 void LowPower_stop(serial_t *obj)
+#else
+/**
+  * @brief  Enable the stop mode.
+  * @retval None
+  */
+void LowPower_stop(void)
+#endif
 {
   __disable_irq();
 
@@ -506,6 +515,7 @@ void LowPower_stop(serial_t *obj)
 
   /* Exit Stop mode reset clocks */
   SystemClock_ConfigFromStop();
+#if 0
 #if defined(UART_WKUP_SUPPORT)
   if (WakeUpUart != NULL) {
     /* In case of WakeUp from UART, reset its clock source to HSI */
@@ -514,6 +524,7 @@ void LowPower_stop(serial_t *obj)
   }
 #else
   UNUSED(obj);
+#endif
 #endif
   __enable_irq();
 
@@ -606,6 +617,7 @@ void LowPower_shutdown(bool isRTC)
   }
 }
 
+#if 0
 /**
   * @brief  Configure the UART as a wakeup source. A callback can be called when
   *         the chip leaves the low power mode. See board datasheet to check
@@ -648,6 +660,7 @@ void LowPower_EnableWakeUpUart(serial_t *serial, void (*FuncPtr)(void))
   /* Save callback */
   WakeUpUartCb = FuncPtr;
 }
+#endif
 
 /**
   * @brief  Configures system clock and system IP clocks after wake-up from STOP
