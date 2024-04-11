@@ -34,7 +34,7 @@
 ******************************************************************************
 */
 
-#include "STM32LowPower.h"
+#include "STM32LowPowerMbed.h"
 
 STM32LowPower LowPower;
 
