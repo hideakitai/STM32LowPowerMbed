@@ -20,6 +20,7 @@
 
 #include "Arduino.h"
 #include "low_power.h"
+#include "clock.h"
 #include "stm32yyxx_ll_pwr.h"
 
 #if defined(HAL_PWR_MODULE_ENABLED) && !defined(HAL_PWR_MODULE_ONLY)
