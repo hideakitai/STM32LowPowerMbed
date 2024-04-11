@@ -42,7 +42,9 @@ STM32LowPower LowPower;
 STM32LowPower::STM32LowPower()
 {
   _configured = false;
+#if 0
   _serial = NULL;
+#endif
   _rtc_wakeup = false;
 }
 
@@ -101,7 +103,11 @@ void STM32LowPower::deepSleep(uint32_t ms)
   if ((ms != 0) || _rtc_wakeup) {
     programRtcWakeUp(ms, DEEP_SLEEP_MODE);
   }
+#if 0
   LowPower_stop(_serial);
+#else
+  LowPower_stop();
+#endif
 }
 
 /**
@@ -141,6 +147,7 @@ void STM32LowPower::attachInterruptWakeup(uint32_t pin, voidFuncPtrVoid callback
   }
 }
 
+#if 0
 /**
   * @brief  Enable a serial interface as a wakeup source.
   * @param  serial: pointer to a HardwareSerial
@@ -157,6 +164,7 @@ void STM32LowPower::enableWakeupFrom(HardwareSerial *serial, voidFuncPtrVoid cal
     LowPower_EnableWakeUpUart(_serial, callback);
   }
 }
+#endif
 
 /**
   * @brief  Attach a callback to a RTC alarm.

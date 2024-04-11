@@ -89,12 +89,16 @@ class STM32LowPower {
 
     void attachInterruptWakeup(uint32_t pin, voidFuncPtrVoid callback, uint32_t mode, LP_Mode LowPowerMode = SHUTDOWN_MODE);
 
+#if 0
     void enableWakeupFrom(HardwareSerial *serial, voidFuncPtrVoid callback);
+#endif
     void enableWakeupFrom(STM32RTC *rtc, voidFuncPtr callback, void *data = NULL);
 
   private:
     bool _configured;     // Low Power mode initialization status
+#if 0
     serial_t *_serial;    // Serial for wakeup from deep sleep
+#endif
     bool _rtc_wakeup;     // Is RTC wakeup?
     void programRtcWakeUp(uint32_t ms, LP_Mode lp_mode);
     void setAlarmTime(uint32_t ms, STM32RTC &rtc);

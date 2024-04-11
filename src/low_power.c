@@ -428,12 +428,20 @@ void LowPower_sleep(uint32_t regulator)
   }
 }
 
+#if 0
 /**
   * @brief  Enable the stop mode.
   * @param  obj : pointer to serial_t structure
   * @retval None
   */
 void LowPower_stop(serial_t *obj)
+#else
+/**
+  * @brief  Enable the stop mode.
+  * @retval None
+  */
+void LowPower_stop(void)
+#endif
 {
   __disable_irq();
 
@@ -506,6 +514,7 @@ void LowPower_stop(serial_t *obj)
 
   /* Exit Stop mode reset clocks */
   SystemClock_ConfigFromStop();
+#if 0
 #if defined(UART_WKUP_SUPPORT)
   if (WakeUpUart != NULL) {
     /* In case of WakeUp from UART, reset its clock source to HSI */
@@ -514,6 +523,7 @@ void LowPower_stop(serial_t *obj)
   }
 #else
   UNUSED(obj);
+#endif
 #endif
   __enable_irq();
 
@@ -606,6 +616,7 @@ void LowPower_shutdown(bool isRTC)
   }
 }
 
+#if 0
 /**
   * @brief  Configure the UART as a wakeup source. A callback can be called when
   *         the chip leaves the low power mode. See board datasheet to check
@@ -648,6 +659,7 @@ void LowPower_EnableWakeUpUart(serial_t *serial, void (*FuncPtr)(void))
   /* Save callback */
   WakeUpUartCb = FuncPtr;
 }
+#endif
 
 /**
   * @brief  Configures system clock and system IP clocks after wake-up from STOP
