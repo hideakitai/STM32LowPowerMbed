@@ -128,7 +128,7 @@ void LowPower_EnableWakeUpPin(PinName pin, uint32_t mode)
 #endif
     }
 #endif /* PWR_WAKEUP_PIN2 */
-#ifdef PWR_WAKEUP_PIN3
+#if defined(PWR_WAKEUP_PIN3) && defined(SYS_WKUP3)
     if ((p == SYS_WKUP3)
 #ifdef PWR_WAKEUP_PIN3_1
         || (p == SYS_WKUP3_1)
@@ -145,7 +145,7 @@ void LowPower_EnableWakeUpPin(PinName pin, uint32_t mode)
 #endif
     }
 #endif /* PWR_WAKEUP_PIN3 */
-#ifdef PWR_WAKEUP_PIN4
+#if defined(PWR_WAKEUP_PIN4) && defined(SYS_WKUP4)
     if ((p == SYS_WKUP4)
 #ifdef PWR_WAKEUP_PIN4_1
         || (p == SYS_WKUP4_1)
@@ -179,7 +179,7 @@ void LowPower_EnableWakeUpPin(PinName pin, uint32_t mode)
 #endif
     }
 #endif /* PWR_WAKEUP_PIN5 */
-#ifdef PWR_WAKEUP_PIN6
+#if defined(PWR_WAKEUP_PIN6) && defined(SYS_WKUP6)
     if ((p == SYS_WKUP6)
 #ifdef PWR_WAKEUP_PIN6_1
         || (p == SYS_WKUP6_1)
