@@ -55,7 +55,7 @@ extern "C" {
 /* Exported functions ------------------------------------------------------- */
 
 void LowPower_init();
-void LowPower_EnableWakeUpPin(uint32_t pin, uint32_t mode);
+void LowPower_EnableWakeUpPin(PinName pin, uint32_t mode);
 #if 0
 void LowPower_EnableWakeUpUart(serial_t *serial, void (*FuncPtr)(void));
 #endif

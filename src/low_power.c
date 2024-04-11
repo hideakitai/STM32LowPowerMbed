@@ -86,7 +86,7 @@ void LowPower_init()
   * @param  mode: pin mode (edge or state). The configuration have to be compatible.
   * @retval None
   */
-void LowPower_EnableWakeUpPin(uint32_t pin, uint32_t mode)
+void LowPower_EnableWakeUpPin(PinName pin, uint32_t mode)
 {
 #if !defined(PWR_WAKEUP_PIN1_HIGH)
   UNUSED(mode);

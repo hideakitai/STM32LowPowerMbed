@@ -137,9 +137,9 @@ void STM32LowPower::shutdown(uint32_t ms)
   *         In case of SHUTDOWN_MODE only, Wakeup pin capability is activated
   * @retval None
   */
-void STM32LowPower::attachInterruptWakeup(uint32_t pin, voidFuncPtrVoid callback, uint32_t mode, LP_Mode LowPowerMode)
+void STM32LowPower::attachInterruptWakeup(PinName pin, isrFuncPtrVoid callback, uint32_t mode, LP_Mode LowPowerMode)
 {
-  attachInterrupt(pin, callback, mode);
+  attachInterrupt(pin, callback, static_cast<PinStatus>(mode));
 
   if (LowPowerMode == SHUTDOWN_MODE) {
     // If Gpio is a Wake up pin activate it for shutdown (standby or shutdown stm32)
@@ -174,7 +174,7 @@ void STM32LowPower::enableWakeupFrom(HardwareSerial *serial, voidFuncPtrVoid cal
   * @param  data: optional pointer to callback data parameters (default NULL).
   * @retval None
   */
-void STM32LowPower::enableWakeupFrom(STM32RTC *rtc, voidFuncPtr callback, void *data)
+void STM32LowPower::enableWakeupFrom(STM32RTC *rtc, isrFuncPtr callback, void *data)
 {
   if (rtc == NULL) {
     rtc = &(STM32RTC::getInstance());
