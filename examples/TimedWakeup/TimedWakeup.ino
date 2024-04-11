@@ -9,9 +9,10 @@
   This example code is in the public domain.
 */
 
-#include "STM32LowPower.h"
+#include "STM32LowPowerMbed.h"
 
 void setup() {
+  Serial.begin(115200);
   pinMode(LED_BUILTIN, OUTPUT);
   // Configure low power
   LowPower.begin();

@@ -15,7 +15,7 @@
   This example code is in the public domain.
 */
 
-#include "STM32LowPower.h"
+#include "STM32LowPowerMbed.h"
 
 // Blink sequence number
 // Declare it volatile since it's incremented inside an interrupt
@@ -23,25 +23,25 @@ volatile int repetitions = 1;
 
 // Pin used to trigger a wakeup
 #ifndef USER_BTN
-#define USER_BTN pinNametoDigitalPin(SYS_WKUP1)
+#define USER_BTN 2
 #endif
 
-const int pin = USER_BTN;
-
 void setup() {
+  Serial.begin(115200);
   pinMode(LED_BUILTIN, OUTPUT);
   // Set pin as INPUT_PULLUP to avoid spurious wakeup
   // Warning depending on boards, INPUT_PULLDOWN may be required instead
-  pinMode(pin, INPUT_PULLUP);
+  pinMode(USER_BTN, INPUT_PULLUP);
 
   // Configure low power
   LowPower.begin();
   // Attach a wakeup interrupt on pin, calling repetitionsIncrease when the device is woken up
   // Last parameter (LowPowerMode) should match with the low power state used: in this example LowPower.sleep()
-  LowPower.attachInterruptWakeup(pin, repetitionsIncrease, RISING, SLEEP_MODE);
-}
+  LowPower.attachInterruptWakeup(digitalPinToPinName(USER_BTN), repetitionsIncrease, RISING, SLEEP_MODE);
+ }
 
 void loop() {
+  Serial.println(repetitions);
   for (int i = 0; i < repetitions; i++) {
     digitalWrite(LED_BUILTIN, HIGH);
     delay(500);

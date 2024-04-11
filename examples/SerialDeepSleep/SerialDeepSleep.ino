@@ -10,13 +10,13 @@
   This example code is in the public domain.
 */
 
-#include "STM32LowPower.h"
+#include "STM32LowPowerMbed.h"
 
 // Declare it volatile since it's incremented inside an interrupt
 volatile int wakeup_counter = 0;
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   // initialize digital pin LED_BUILTIN as an output.
   pinMode(LED_BUILTIN, OUTPUT);
   // Configure low power
